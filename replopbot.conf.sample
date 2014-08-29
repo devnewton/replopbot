@@ -1,0 +1,16 @@
+{
+  "nickname" : "replopbot",
+  "xmmp" : {
+    "server" : "bci.im",
+    "room" : "devnewton@conference.bci.im",
+    "user" : "replopbot",
+    "password" : "maman"
+  },
+  "irc" : {
+    "chan" : "chat.freenode.net/#devnewton"
+  },
+  "tribune" : {
+    "getUrl" : "http://devnewton.bci.im/fr/chat/xml",
+    "postUrl" : "http://devnewton.bci.im/fr/chat/post"
+  }
+}
