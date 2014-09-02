@@ -48,7 +48,7 @@ public class Replopbot {
                         Message in = ex.getIn();
                         String sender = ObjectUtils.toString(in.getHeader(XmppConstants.FROM));
                         if (!sender.isEmpty()) {
-                            in.setHeader(TribuneConstants.SENDER, config.getNickname() + "/" + sender);
+                            in.setHeader(TribuneConstants.SENDER, config.getTribune().getNicknamePrefix() + sender);
                         }
                     }
                 }).to(tribuneEndPoint).process(new Processor() {
@@ -93,7 +93,7 @@ public class Replopbot {
                         Message in = ex.getIn();
                         String sender = ObjectUtils.toString(in.getHeader(IrcConstants.IRC_USER_NICK));
                         if (!sender.isEmpty()) {
-                            in.setHeader(TribuneConstants.SENDER, config.getNickname() + "/" + sender);
+                            in.setHeader(TribuneConstants.SENDER, config.getTribune().getNicknamePrefix() + sender);
                         }
                     }
                 }).to(tribuneEndPoint).process(new Processor() {
@@ -118,6 +118,9 @@ public class Replopbot {
                     public boolean matches(Exchange ex) {
                         String sender = ObjectUtils.toString(ex.getIn().getHeader(TribuneConstants.SENDER));
                         if (StringUtils.contains(sender, config.getNickname())) {
+                            return false;
+                        }
+                        if (StringUtils.startsWith(sender, config.getTribune().getNicknamePrefix())) {
                             return false;
                         }
                         if (StringUtils.isBlank(sender)) { // probably some

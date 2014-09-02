@@ -2,8 +2,9 @@ package im.bci.replopbot.conf;
 
 public class ReplopbotTribuneConfiguration {
 
-    private String getUrl = "http://devnewton.bci.im/fr/chat/xml";
-    private String postUrl = "http://devnewton.bci.im/fr/chat/post";
+    private String getUrl;
+    private String postUrl;
+    private String nicknamePrefix;
 
     public String getGetUrl() {
         return getUrl;
@@ -19,6 +20,14 @@ public class ReplopbotTribuneConfiguration {
 
     public void setPostUrl(String postUrl) {
         this.postUrl = postUrl;
+    }
+
+    public String getNicknamePrefix() {
+        return nicknamePrefix;
+    }
+
+    public void setNicknamePrefix(String nicknamePrefix) {
+        this.nicknamePrefix = nicknamePrefix;
     }
 
    
