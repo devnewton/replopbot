@@ -11,6 +11,7 @@
   },
   "tribune" : {
     "getUrl" : "http://devnewton.bci.im/fr/chat/xml",
-    "postUrl" : "http://devnewton.bci.im/fr/chat/post"
+    "postUrl" : "http://devnewton.bci.im/fr/chat/post",
+    "nicknamePrefix" : "\u00AE"
   }
 }
