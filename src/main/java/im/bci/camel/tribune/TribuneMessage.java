@@ -1,30 +1,33 @@
 package im.bci.camel.tribune;
 
 import java.util.Map;
-
-import im.bci.camel.tribune.backend.Post;
-
 import org.apache.camel.impl.DefaultMessage;
 import org.apache.commons.lang.StringUtils;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class TribuneMessage extends DefaultMessage {
 
-    private Post post;
+    private final Element post;
 
-    public TribuneMessage(Post post) {
+    TribuneMessage(Element post) {
         this.post = post;
     }
-    
+
     @Override
     protected Object createBody() {
-        return post.getMessage();
+        Elements message = post.select("message");
+        for(Element a : message.select("a")) {
+            a.text(a.attr("href"));
+        }
+        return message.text();
     }
-    
+
     @Override
     protected void populateInitialHeaders(Map<String, Object> map) {
-        String sender = post.getLogin();
-        if(StringUtils.isEmpty(sender)) {
-            sender = post.getInfo();
+        String sender = post.select("login").text();
+        if (StringUtils.isEmpty(sender)) {
+            sender = post.select("info").text();
         }
         map.put(TribuneConstants.SENDER, sender);
     }
