@@ -17,7 +17,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
 
 public class Replopbot {
 
@@ -73,11 +72,17 @@ public class Replopbot {
                 from(ircEndPoint).filter(new Predicate() {
 
                     public boolean matches(Exchange ex) {
+                        if(!"PRIVMSG".equals(ObjectUtils.toString(ex.getIn().getHeader(IrcConstants.IRC_MESSAGE_TYPE)))) {
+                            return false;
+                        }
                         String sender = ObjectUtils.toString(ex.getIn().getHeader(IrcConstants.IRC_USER_NICK));
                         if (StringUtils.equals(sender, "ChanServ")) {
                             return false;
                         }
                         if (StringUtils.contains(sender, config.getNickname())) {
+                            return false;
+                        }
+                        if (StringUtils.contains(ObjectUtils.toString(ex.getIn().getHeader(IrcConstants.IRC_TARGET)), config.getNickname())) {
                             return false;
                         }
                         return true;

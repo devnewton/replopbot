@@ -4,3 +4,4 @@
 /.project
 /.settings/org.eclipse.jdt.core.prefs
 /replopbot.conf
+/target
